@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TESObjectREFRGetEncounterZonePatch
+namespace Patches::TESObjectREFRGetEncounterZonePatch
 {
 	namespace detail
 	{

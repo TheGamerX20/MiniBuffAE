@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ActorIsHostileToActorPatch
+namespace Patches::ActorIsHostileToActorPatch
 {
 	namespace detail
 	{

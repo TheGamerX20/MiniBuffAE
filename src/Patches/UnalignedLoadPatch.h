@@ -1,6 +1,6 @@
 #pragma once
 
-namespace UnalignedLoadPatch
+namespace Patches::UnalignedLoadPatch
 {
 	namespace detail
 	{

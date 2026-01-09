@@ -1,6 +1,6 @@
 #pragma once
 
-namespace CellInitPatch
+namespace Patches::CellInitPatch
 {
 	namespace detail
 	{

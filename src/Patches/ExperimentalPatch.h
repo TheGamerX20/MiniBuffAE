@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ExperimentalPatch
+namespace Patches::ExperimentalPatch
 {
 	namespace detail
 	{

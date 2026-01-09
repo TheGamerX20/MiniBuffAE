@@ -1,6 +1,6 @@
 #pragma once
 
-namespace EncounterZoneResetPatch
+namespace Patches::EncounterZoneResetPatch
 {
 	namespace detail
 	{
