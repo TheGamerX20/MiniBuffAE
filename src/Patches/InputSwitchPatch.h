@@ -130,7 +130,7 @@ namespace Patches::InputSwitchPatch
 			const auto manager = RE::PipboyManager::GetSingleton();
 
 			bool cursorEnabled = false;
-			if (REL::Relocation<RE::PIPBOY_PAGES*> curPage{ REL::ID(2696944) }; *curPage == RE::PIPBOY_PAGES::kMap) // OG: 1287022
+			if (REL::Relocation<RE::PIPBOY_PAGES*> curPage{ REL::ID(4804316) }; *curPage == RE::PIPBOY_PAGES::kMap) // OG: 1287022, NG: 2696944
 			{
 				cursorEnabled = !a_self.showingModalMessage;
 			}
