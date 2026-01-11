@@ -18,7 +18,7 @@ namespace Patches::ActorIsHostileToActorPatch
 		}
 	}
 
-	inline bool Install()
+	inline bool InstallPreLoad()
 	{
 		constexpr std::size_t Size = 0x10;
 		REL::Relocation<std::uintptr_t> Target{ REL::ID(4486975) };

@@ -9,6 +9,22 @@ using namespace std::literals;
 
 namespace stl
 {
+	template <class E, class U = std::underlying_type_t<E>> class enumeration : public REX::EnumSet<E, U>
+	{
+		using super = REX::EnumSet<E, U>;
+
+	public:
+		using enum_type = E;
+		using underlying_type = U;
+
+		using super::super;
+		using super::operator=;
+		using super::operator*;
+	};
+
+	template <class... Args>
+	enumeration(Args...) -> enumeration<std::common_type_t<Args...>, std::underlying_type_t<std::common_type_t<Args...>>>;
+
 	namespace detail
 	{
 		struct asm_patch : Xbyak::CodeGenerator

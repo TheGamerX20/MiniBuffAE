@@ -45,7 +45,7 @@ namespace Patches::EncounterZoneResetPatch
 		};
 	}
 
-	inline bool Install()
+	inline bool InstallPostInit()
 	{
 		auto& Cells = RE::CellAttachDetachEventSource::CellAttachDetachEventSourceSingleton::GetSingleton();
 		Cells.source.RegisterSink(detail::Sink::GetSingleton());

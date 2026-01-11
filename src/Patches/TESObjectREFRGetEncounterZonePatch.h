@@ -29,7 +29,7 @@ namespace Patches::TESObjectREFRGetEncounterZonePatch
 		};
 	}
 
-	inline bool Install()
+	inline bool InstallPreLoad()
 	{
 		REL::Relocation<std::uintptr_t> Target{ REL::ID(2202627) };
 

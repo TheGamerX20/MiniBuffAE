@@ -13,7 +13,7 @@ namespace Patches::UnalignedLoadPatch
 		}
 	}
 
-	inline bool Install()
+	inline bool InstallPreLoad()
 	{
 		detail::ApplySkinningToGeometry();
 

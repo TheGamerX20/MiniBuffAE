@@ -1,6 +1,7 @@
 #include <pch.h>
 
 // Patches
+#include <Patches/InputSwitchPatch.h>
 #include <Patches/EncounterZoneResetPatch.h>
 #include <Patches/TESObjectREFRGetEncounterZonePatch.h>
 #include <Patches/ActorIsHostileToActorPatch.h>
@@ -11,75 +12,60 @@
 namespace Main
 {
     // Config Options
+    static REX::INI::Bool iInputSwitchPatch{ "Patches"sv, "EnableInputSwitchPatch"sv, true };
     static REX::INI::Bool iEncounterZoneResetPatch{ "Patches"sv, "EnableEncounterZoneResetPatch"sv, true };
     static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{ "Patches"sv, "EnableTESObjectREFRGetEncounterZonePatch"sv, true };
     static REX::INI::Bool iActorIsHostileToActorPatch{ "Patches"sv, "EnableActorIsHostileToActorPatch"sv, true };
     static REX::INI::Bool iUnalignedLoadPatch{ "Patches"sv, "EnableUnalignedLoadPatch"sv, true };
     static REX::INI::Bool iCellInitPatch{ "Patches"sv, "EnableCellInitPatch"sv, true };
-    static REX::INI::Bool iExperimentalPatch{ "Patches"sv, "EnableExperimentalPatch"sv, true };
+    static REX::INI::Bool iExperimentalPatch{ "Patches"sv, "EnableExperimentalPatch"sv, false };
 
-    // -------- Normal Patches -------- //
-
-    void InstallPatches()
+    // Helper Function
+    template <typename Func>
+    void ApplyPatch(std::string_view PatchName, bool ShouldApplyPatch, Func&& PatchInstallFunction)
     {
-        // Patch TESObjectREFRGetEncounterZone
-        if (iTESObjectREFRGetEncounterZonePatch.GetValue() == true)
+        if (!ShouldApplyPatch)
         {
-            if (Patches::TESObjectREFRGetEncounterZonePatch::Install())
-            {
-                REX::INFO("Achievements Patch Initialized!");
-            }
+            return;
         }
 
-        // Patch ActorIsHostileToActor
-        if (iActorIsHostileToActorPatch.GetValue() == true)
-        {
-            if (Patches::ActorIsHostileToActorPatch::Install())
-            {
-                REX::INFO("ActorIsHostileToActor Patched!");
-            }
-        }
+        REX::INFO("    Patching {}...", PatchName);
 
-        // Patch UnalignedLoad
-        if (iUnalignedLoadPatch.GetValue() == true)
+        if (PatchInstallFunction())
         {
-            if (Patches::UnalignedLoadPatch::Install())
-            {
-                REX::INFO("UnalignedLoad Patched!");
-            }
+            REX::INFO("        Successfully Patched!");
         }
-
-        // Patch CellInit
-        if (iCellInitPatch.GetValue() == true)
-        {
-            if (Patches::CellInitPatch::Install())
-            {
-                REX::INFO("CellInit Patched!");
-            }
-        }
-
-        // Experimental Patch
-        if (iExperimentalPatch.GetValue() == true)
-        {
-            if (Patches::ExperimentalPatch::Install())
-            {
-                REX::INFO("Experimental Patch Loaded, here be dragons!");
-            }
+        else {
+            REX::WARN("        Failed to Patch!");
         }
     }
 
-    // -------- Late Patches -------- //
+    // -------- PreLoad Patches -------- //
 
-    void InstallLatePatches()
+    void InstallPreLoadPatches()
     {
-        // Patch EncounterZoneResetPatch
-        if (iEncounterZoneResetPatch.GetValue() == true)
-        {
-            if (Patches::EncounterZoneResetPatch::Install())
-            {
-                REX::INFO("EncounterZoneReset Patched!");
-            }
-        }
+        REX::INFO("Installing PreLoad Patches...");
+
+        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                       Patches::InputSwitchPatch::InstallPreLoad                        );
+        ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),     Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad      );
+        ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),             Patches::ActorIsHostileToActorPatch::InstallPreLoad              );
+        ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                     Patches::UnalignedLoadPatch::InstallPreLoad                      );
+        ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                          Patches::CellInitPatch::InstallPreLoad                           );
+        ApplyPatch("Experimental",                      iExperimentalPatch.GetValue(),                      Patches::ExperimentalPatch::InstallPreLoad                       );
+
+        REX::INFO("Installed PreLoad Patches!");
+    }
+
+    // -------- PostInit Patches -------- //
+
+    void InstallPostInitPatches()
+    {
+        REX::INFO("Installing PostInit Patches...");
+
+        ApplyPatch("InputSwitch",           iInputSwitchPatch.GetValue(),           Patches::InputSwitchPatch::InstallPostInit            );
+        ApplyPatch("EncounterZoneReset",    iEncounterZoneResetPatch.GetValue(),    Patches::EncounterZoneResetPatch::InstallPostInit     );
+
+        REX::INFO("Installed PostInit Patches!");
     }
 
     // -------- F4SE Functions -------- //
@@ -90,7 +76,9 @@ namespace Main
         {
         case F4SE::MessagingInterface::kGameLoaded:
         {
-            InstallLatePatches();
+            InstallPostInitPatches();
+            REX::INFO("MiniBuff AE Initialized!");
+
             break;
         }
         default:
@@ -111,18 +99,17 @@ namespace Main
 
         // Get the Trampoline and Allocate
         auto& trampoline = REL::GetTrampoline();
-        trampoline.create(128);
+        trampoline.create(256);
 
-        // Install Patches
-        InstallPatches();
-
-        // Listen for Messages (to Install Late Patches)
+        // Listen for Messages (to Install PostInit Patches)
         auto MessagingInterface = F4SE::GetMessagingInterface();
         MessagingInterface->RegisterListener(F4SEMessageListener);
         REX::INFO("Started Listening for F4SE Message Callbacks.");
 
+        // Install PreLoad Patches
+        InstallPreLoadPatches();
+
         // Finished
-        REX::INFO("MiniBuff AE Initialized!");
         return true;
     }
 }

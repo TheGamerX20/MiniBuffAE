@@ -30,7 +30,7 @@ namespace Patches::ExperimentalPatch
 		};
 	}
 
-	inline bool Install()
+	inline bool InstallPreLoad()
 	{
 		auto& trampoline = REL::GetTrampoline();
 

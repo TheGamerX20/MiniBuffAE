@@ -34,7 +34,7 @@ namespace Patches::CellInitPatch
 		};
 	}
 
-	inline bool Install()
+	inline bool InstallPreLoad()
 	{
 		REL::Relocation<std::uintptr_t> Target{ REL::ID(2200179), REL::Offset(0x3E) };
 
