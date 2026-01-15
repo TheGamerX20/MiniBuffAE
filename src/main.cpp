@@ -1,6 +1,7 @@
 #include <pch.h>
 
 // Patches
+#include <Patches/InteriorNavCutPatch.h>
 #include <Patches/InputSwitchPatch.h>
 #include <Patches/EncounterZoneResetPatch.h>
 #include <Patches/TESObjectREFRGetEncounterZonePatch.h>
@@ -12,6 +13,7 @@
 namespace Main
 {
     // Config Options
+    static REX::INI::Bool iInteriorNavCutPatch{ "Patches"sv, "EnableInteriorNavCutPatch"sv, true };
     static REX::INI::Bool iInputSwitchPatch{ "Patches"sv, "EnableInputSwitchPatch"sv, true };
     static REX::INI::Bool iEncounterZoneResetPatch{ "Patches"sv, "EnableEncounterZoneResetPatch"sv, true };
     static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{ "Patches"sv, "EnableTESObjectREFRGetEncounterZonePatch"sv, true };
@@ -56,6 +58,17 @@ namespace Main
         REX::INFO("Installed PreLoad Patches!");
     }
 
+    // -------- GameDataReady Patches -------- //
+
+    void InstallGameDataReadyPatches()
+    {
+        REX::INFO("Installing GameDataReady Patches...");
+
+        ApplyPatch("InteriorNavCut", iInteriorNavCutPatch.GetValue(), Patches::InteriorNavCutPatch::RegisterNavMeshUpdateListener);
+
+        REX::INFO("Installed GameDataReady Patches!");
+    }
+
     // -------- PostInit Patches -------- //
 
     void InstallPostInitPatches()
@@ -68,12 +81,27 @@ namespace Main
         REX::INFO("Installed PostInit Patches!");
     }
 
+    // -------- PostLoadGame Patches -------- //
+
+    void InstallPostLoadGamePatches()
+    {
+        REX::INFO("Applying PostLoadGame Patches...");
+
+        ApplyPatch("InteriorNavCut", iInteriorNavCutPatch.GetValue(), Patches::InteriorNavCutPatch::ForceNavMeshUpdate);
+
+        REX::INFO("Applied PostLoadGame Patches!");
+    }
+
     // -------- F4SE Functions -------- //
 
     void F4SEMessageListener(F4SE::MessagingInterface::Message* a_msg)
     {
         switch (a_msg->type)
         {
+        case F4SE::MessagingInterface::kGameDataReady:
+            InstallGameDataReadyPatches();
+
+            break;
         case F4SE::MessagingInterface::kGameLoaded:
         {
             InstallPostInitPatches();
@@ -81,6 +109,10 @@ namespace Main
 
             break;
         }
+        case F4SE::MessagingInterface::kPostLoadGame:
+            InstallPostLoadGamePatches();
+
+            break;
         default:
             break;
         }
