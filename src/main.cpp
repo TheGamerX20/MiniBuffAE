@@ -1,6 +1,7 @@
 #include <pch.h>
 
 // Patches
+#include <Patches/SafeExitPatch.h>
 #include <Patches/InteriorNavCutPatch.h>
 #include <Patches/InputSwitchPatch.h>
 #include <Patches/EncounterZoneResetPatch.h>
@@ -13,6 +14,7 @@
 namespace Main
 {
     // Config Options
+    static REX::INI::Bool iSafeExitPatch{ "Patches"sv, "EnableSafeExitPatch"sv, true };
     static REX::INI::Bool iInteriorNavCutPatch{ "Patches"sv, "EnableInteriorNavCutPatch"sv, true };
     static REX::INI::Bool iInputSwitchPatch{ "Patches"sv, "EnableInputSwitchPatch"sv, true };
     static REX::INI::Bool iEncounterZoneResetPatch{ "Patches"sv, "EnableEncounterZoneResetPatch"sv, true };
@@ -47,7 +49,8 @@ namespace Main
     void InstallPreLoadPatches()
     {
         REX::INFO("Installing PreLoad Patches...");
-
+        
+        ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                          Patches::SafeExitPatch::InstallPreLoad                           );
         ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                       Patches::InputSwitchPatch::InstallPreLoad                        );
         ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),     Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad      );
         ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),             Patches::ActorIsHostileToActorPatch::InstallPreLoad              );
