@@ -1,28 +1,30 @@
 #include <pch.h>
 
 // Patches
-#include <Patches/SafeExitPatch.h>
-#include <Patches/InteriorNavCutPatch.h>
-#include <Patches/InputSwitchPatch.h>
-#include <Patches/EncounterZoneResetPatch.h>
-#include <Patches/TESObjectREFRGetEncounterZonePatch.h>
 #include <Patches/ActorIsHostileToActorPatch.h>
-#include <Patches/UnalignedLoadPatch.h>
 #include <Patches/CellInitPatch.h>
+#include <Patches/EncounterZoneResetPatch.h>
 #include <Patches/ExperimentalPatch.h>
+#include <Patches/InputSwitchPatch.h>
+#include <Patches/InteriorNavCutPatch.h>
+#include <Patches/SafeExitPatch.h>
+#include <Patches/TESObjectREFRGetEncounterZonePatch.h>
+#include <Patches/UnalignedLoadPatch.h>
 
 namespace Main
 {
     // Config Options
-    static REX::INI::Bool iSafeExitPatch{ "Patches"sv, "EnableSafeExitPatch"sv, true };
-    static REX::INI::Bool iInteriorNavCutPatch{ "Patches"sv, "EnableInteriorNavCutPatch"sv, true };
-    static REX::INI::Bool iInputSwitchPatch{ "Patches"sv, "EnableInputSwitchPatch"sv, true };
-    static REX::INI::Bool iEncounterZoneResetPatch{ "Patches"sv, "EnableEncounterZoneResetPatch"sv, true };
-    static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{ "Patches"sv, "EnableTESObjectREFRGetEncounterZonePatch"sv, true };
-    static REX::INI::Bool iActorIsHostileToActorPatch{ "Patches"sv, "EnableActorIsHostileToActorPatch"sv, true };
-    static REX::INI::Bool iUnalignedLoadPatch{ "Patches"sv, "EnableUnalignedLoadPatch"sv, true };
-    static REX::INI::Bool iCellInitPatch{ "Patches"sv, "EnableCellInitPatch"sv, true };
-    static REX::INI::Bool iExperimentalPatch{ "Patches"sv, "EnableExperimentalPatch"sv, false };
+    static REX::INI::Bool iActorIsHostileToActorPatch{              "Patches"sv,        "EnableActorIsHostileToActorPatch"sv,               true        };
+    static REX::INI::Bool iCellInitPatch{                           "Patches"sv,        "EnableCellInitPatch"sv,                            true        };
+    static REX::INI::Bool iEncounterZoneResetPatch{                 "Patches"sv,        "EnableEncounterZoneResetPatch"sv,                  true        };
+    static REX::INI::Bool iInputSwitchPatch{                        "Patches"sv,        "EnableInputSwitchPatch"sv,                         true        };
+    static REX::INI::Bool iInteriorNavCutPatch{                     "Patches"sv,        "EnableInteriorNavCutPatch"sv,                      true        };
+    static REX::INI::Bool iSafeExitPatch{                           "Patches"sv,        "EnableSafeExitPatch"sv,                            true        };
+    static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Patches"sv,        "EnableTESObjectREFRGetEncounterZonePatch"sv,       true        };
+    static REX::INI::Bool iUnalignedLoadPatch{                      "Patches"sv,        "EnableUnalignedLoadPatch"sv,                       true        };
+
+    // Experimental Patch
+    static REX::INI::Bool iExperimentalPatch{                       "Patches"sv,        "EnableExperimentalPatch"sv,                        false       };
 
     // Helper Function
     template <typename Func>
@@ -50,13 +52,15 @@ namespace Main
     {
         REX::INFO("Installing PreLoad Patches...");
         
-        ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                          Patches::SafeExitPatch::InstallPreLoad                           );
-        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                       Patches::InputSwitchPatch::InstallPreLoad                        );
-        ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),     Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad      );
-        ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),             Patches::ActorIsHostileToActorPatch::InstallPreLoad              );
-        ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                     Patches::UnalignedLoadPatch::InstallPreLoad                      );
-        ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                          Patches::CellInitPatch::InstallPreLoad                           );
-        ApplyPatch("Experimental",                      iExperimentalPatch.GetValue(),                      Patches::ExperimentalPatch::InstallPreLoad                       );
+        ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),                 Patches::ActorIsHostileToActorPatch::InstallPreLoad                 );
+        ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                              Patches::CellInitPatch::InstallPreLoad                              );
+        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPreLoad                           );
+        ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                              Patches::SafeExitPatch::InstallPreLoad                              );
+        ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),         Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad         );
+        ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                         Patches::UnalignedLoadPatch::InstallPreLoad                         );
+
+        // Experimental
+        ApplyPatch("Experimental",                      iExperimentalPatch.GetValue(),                          Patches::ExperimentalPatch::InstallPreLoad                          );
 
         REX::INFO("Installed PreLoad Patches!");
     }
@@ -67,7 +71,7 @@ namespace Main
     {
         REX::INFO("Installing GameDataReady Patches...");
 
-        ApplyPatch("InteriorNavCut", iInteriorNavCutPatch.GetValue(), Patches::InteriorNavCutPatch::RegisterNavMeshUpdateListener);
+        ApplyPatch("InteriorNavCut",                    iInteriorNavCutPatch.GetValue(),                        Patches::InteriorNavCutPatch::RegisterNavMeshUpdateListener         );
 
         REX::INFO("Installed GameDataReady Patches!");
     }
@@ -78,8 +82,8 @@ namespace Main
     {
         REX::INFO("Installing PostInit Patches...");
 
-        ApplyPatch("InputSwitch",           iInputSwitchPatch.GetValue(),           Patches::InputSwitchPatch::InstallPostInit            );
-        ApplyPatch("EncounterZoneReset",    iEncounterZoneResetPatch.GetValue(),    Patches::EncounterZoneResetPatch::InstallPostInit     );
+        ApplyPatch("EncounterZoneReset",                iEncounterZoneResetPatch.GetValue(),                    Patches::EncounterZoneResetPatch::InstallPostInit                   );
+        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPostInit                          );
 
         REX::INFO("Installed PostInit Patches!");
     }
@@ -90,7 +94,7 @@ namespace Main
     {
         REX::INFO("Applying PostLoadGame Patches...");
 
-        ApplyPatch("InteriorNavCut", iInteriorNavCutPatch.GetValue(), Patches::InteriorNavCutPatch::ForceNavMeshUpdate);
+        ApplyPatch("InteriorNavCut",                    iInteriorNavCutPatch.GetValue(),                        Patches::InteriorNavCutPatch::ForceNavMeshUpdate                    );
 
         REX::INFO("Applied PostLoadGame Patches!");
     }
