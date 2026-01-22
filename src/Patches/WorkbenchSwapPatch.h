@@ -1,0 +1,36 @@
+#pragma once
+
+namespace Patches::WorkbenchSwapPatch
+{
+	namespace detail
+	{
+		struct Patch : Xbyak::CodeGenerator
+		{
+			explicit Patch(std::uintptr_t a_dest)
+			{
+				Xbyak::Label retLab;
+
+				and_(dword[rdi + 0x4], 0xFFFFFFF);
+				mov(rcx, 1);
+				jmp(ptr[rip + retLab]);
+
+				L(retLab);
+				dq(a_dest);
+			}
+		};
+	}
+
+	inline bool InstallPreLoad()
+	{
+		REL::Relocation<std::uintptr_t> Target{ REL::ID(2267897), 0x48 };
+		REL::Relocation<std::uintptr_t> Resume{ REL::ID(2267897), 0x4D };
+
+		detail::Patch p{ Resume.address() };
+		p.ready();
+
+		auto& trampoline = REL::GetTrampoline();
+		trampoline.write_jmp<5>(Target.address(), trampoline.allocate(p));
+
+		return true;
+	}
+}

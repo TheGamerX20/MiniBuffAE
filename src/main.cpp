@@ -1,27 +1,39 @@
 #include <pch.h>
 
 // Patches
+#include <Patches/AchievementsPatch.h>
 #include <Patches/ActorIsHostileToActorPatch.h>
 #include <Patches/CellInitPatch.h>
 #include <Patches/EncounterZoneResetPatch.h>
 #include <Patches/ExperimentalPatch.h>
+#include <Patches/INISettingCollectionPatch.h>
 #include <Patches/InputSwitchPatch.h>
 #include <Patches/InteriorNavCutPatch.h>
+#include <Patches/MagicEffectApplyEventPatch.h>
+#include <Patches/MaxStdIOPatch.h>
+#include <Patches/MovementPlannerPatch.h>
 #include <Patches/SafeExitPatch.h>
 #include <Patches/TESObjectREFRGetEncounterZonePatch.h>
 #include <Patches/UnalignedLoadPatch.h>
+#include <Patches/WorkbenchSwapPatch.h>
 
 namespace Main
 {
     // Config Options
+    static REX::INI::Bool iAchievementsPatch{                       "Patches"sv,        "EnableAchievementsPatch"sv,                        true        };
     static REX::INI::Bool iActorIsHostileToActorPatch{              "Patches"sv,        "EnableActorIsHostileToActorPatch"sv,               true        };
     static REX::INI::Bool iCellInitPatch{                           "Patches"sv,        "EnableCellInitPatch"sv,                            true        };
     static REX::INI::Bool iEncounterZoneResetPatch{                 "Patches"sv,        "EnableEncounterZoneResetPatch"sv,                  true        };
+    static REX::INI::Bool iINISettingCollectionPatch{               "Patches"sv,        "EnableINISettingCollectionPatch"sv,                true        };
     static REX::INI::Bool iInputSwitchPatch{                        "Patches"sv,        "EnableInputSwitchPatch"sv,                         true        };
     static REX::INI::Bool iInteriorNavCutPatch{                     "Patches"sv,        "EnableInteriorNavCutPatch"sv,                      true        };
+    static REX::INI::Bool iMagicEffectApplyEventPatch{              "Patches"sv,        "EnableMagicEffectApplyEventPatch"sv,               true        };
+    static REX::INI::Bool iMaxStdIOPatch{                           "Patches"sv,        "EnableMaxStdIOPatch"sv,                            true        };
+    static REX::INI::Bool iMovementPlannerPatch{                    "Patches"sv,        "EnableMovementPlannerPatch"sv,                     true        };
     static REX::INI::Bool iSafeExitPatch{                           "Patches"sv,        "EnableSafeExitPatch"sv,                            true        };
     static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Patches"sv,        "EnableTESObjectREFRGetEncounterZonePatch"sv,       true        };
     static REX::INI::Bool iUnalignedLoadPatch{                      "Patches"sv,        "EnableUnalignedLoadPatch"sv,                       true        };
+    static REX::INI::Bool iWorkbenchSwapPatch{                      "Patches"sv,        "EnableWorkbenchSwapPatch"sv,                       true        };
 
     // Experimental Patch
     static REX::INI::Bool iExperimentalPatch{                       "Patches"sv,        "EnableExperimentalPatch"sv,                        false       };
@@ -52,12 +64,18 @@ namespace Main
     {
         REX::INFO("Installing PreLoad Patches...");
         
+        ApplyPatch("Achievements",                      iAchievementsPatch.GetValue(),                          Patches::AchievementsPatch::InstallPreLoad                          );
         ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),                 Patches::ActorIsHostileToActorPatch::InstallPreLoad                 );
         ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                              Patches::CellInitPatch::InstallPreLoad                              );
+        ApplyPatch("INISettingCollection",              iINISettingCollectionPatch.GetValue(),                  Patches::INISettingCollectionPatch::InstallPreLoad                  );
         ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPreLoad                           );
+        ApplyPatch("MagicEffectApplyEvent",             iMagicEffectApplyEventPatch.GetValue(),                 Patches::MagicEffectApplyEventPatch::InstallPreLoad                 );
+        ApplyPatch("MaxStdIO",                          iMaxStdIOPatch.GetValue(),                              Patches::MaxStdIOPatch::InstallPreLoad                              );
+        ApplyPatch("MovementPlanner",                   iMovementPlannerPatch.GetValue(),                       Patches::MovementPlannerPatch::InstallPreLoad                       );
         ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                              Patches::SafeExitPatch::InstallPreLoad                              );
         ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),         Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad         );
         ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                         Patches::UnalignedLoadPatch::InstallPreLoad                         );
+        ApplyPatch("WorkbenchSwap",                     iWorkbenchSwapPatch.GetValue(),                         Patches::WorkbenchSwapPatch::InstallPreLoad                         );
 
         // Experimental
         ApplyPatch("Experimental",                      iExperimentalPatch.GetValue(),                          Patches::ExperimentalPatch::InstallPreLoad                          );

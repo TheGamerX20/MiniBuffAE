@@ -9,7 +9,7 @@ set_project("MiniBuffAE")
 set_license("GPL-3.0")
 
 -- project version
-local version = "1.4.0"
+local version = "1.5.0"
 local major, minor, patch = version:match("^(%d+)%.(%d+)%.(%d+)$")
 set_version(version)
 
@@ -37,7 +37,7 @@ target("MiniBuffAE")
     add_rules("commonlibf4.plugin", {
         name = "MiniBuffAE",
         author = "TheGamerX20",
-        description = "Enables Achievements on AE!"
+        description = "Buffout 4 NG ported to AE"
     })
 
     -- add src files
