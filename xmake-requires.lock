@@ -9,9 +9,6 @@
         ["ninja#f56260b5"] = {
             version = "1.12.1"
         },
-        ["robin-hood-hashing#f56260b5"] = {
-            version = "3.11.5"
-        },
         ["simpleini#f56260b5"] = {
             version = "v4.22"
         },
@@ -20,6 +17,9 @@
         },
         ["tbb#f56260b5"] = {
             version = "2022.1.0"
+        },
+        ["unordered_dense#f56260b5"] = {
+            version = "v4.8.1"
         },
         ["xbyak#f56260b5"] = {
             version = "v7.06"

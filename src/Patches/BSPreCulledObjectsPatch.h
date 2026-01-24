@@ -37,7 +37,7 @@ namespace Patches::BSPreCulledObjectsPatch
 		{
 		public:
 			using value_type =
-				robin_hood::pair<
+				std::pair<
 				std::uint32_t,                   // full form id
 				RE::NiPointer<RE::NiAVObject>>;  // object 3D
 			using container_type =
@@ -186,11 +186,11 @@ namespace Patches::BSPreCulledObjectsPatch
 				}
 			}
 
-			robin_hood::unordered_flat_map<
+			ankerl::unordered_dense::map<
 				std::uint32_t,  // form id w/o file index
 				container_type>
 				_generic;
-			robin_hood::unordered_flat_map<
+			ankerl::unordered_dense::map<
 				std::uint32_t,  // full form id
 				value_type::second_type>
 				_special;

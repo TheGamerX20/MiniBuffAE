@@ -29,13 +29,13 @@ set_config("commonlib_ini", true)
 set_config("commonlib_xbyak", true)
 
 -- add requires
-add_requires("robin-hood-hashing")
+add_requires("unordered_dense")
 add_requires("tbb")
 
 -- targets
 target("MiniBuffAE")
     -- add packages
-    add_packages("robin-hood-hashing")
+    add_packages("unordered_dense")
     add_packages("tbb")
 
     -- add dependencies to target
