@@ -3,6 +3,7 @@
 // Patches
 #include <Patches/AchievementsPatch.h>
 #include <Patches/ActorIsHostileToActorPatch.h>
+#include <Patches/BSPreCulledObjectsPatch.h>
 #include <Patches/CellInitPatch.h>
 #include <Patches/EncounterZoneResetPatch.h>
 #include <Patches/ExperimentalPatch.h>
@@ -22,6 +23,7 @@ namespace Main
     // Config Options
     static REX::INI::Bool iAchievementsPatch{                       "Patches"sv,        "EnableAchievementsPatch"sv,                        true        };
     static REX::INI::Bool iActorIsHostileToActorPatch{              "Patches"sv,        "EnableActorIsHostileToActorPatch"sv,               true        };
+    static REX::INI::Bool iBSPreCulledObjectsPatch{                 "Patches"sv,        "EnableBSPreCulledObjectsPatch"sv,                  true        };
     static REX::INI::Bool iCellInitPatch{                           "Patches"sv,        "EnableCellInitPatch"sv,                            true        };
     static REX::INI::Bool iEncounterZoneResetPatch{                 "Patches"sv,        "EnableEncounterZoneResetPatch"sv,                  true        };
     static REX::INI::Bool iINISettingCollectionPatch{               "Patches"sv,        "EnableINISettingCollectionPatch"sv,                true        };
@@ -66,6 +68,7 @@ namespace Main
         
         ApplyPatch("Achievements",                      iAchievementsPatch.GetValue(),                          Patches::AchievementsPatch::InstallPreLoad                          );
         ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),                 Patches::ActorIsHostileToActorPatch::InstallPreLoad                 );
+        ApplyPatch("BSPreCulledObjects",                iBSPreCulledObjectsPatch.GetValue(),                    Patches::BSPreCulledObjectsPatch::InstallPreLoad                    );
         ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                              Patches::CellInitPatch::InstallPreLoad                              );
         ApplyPatch("INISettingCollection",              iINISettingCollectionPatch.GetValue(),                  Patches::INISettingCollectionPatch::InstallPreLoad                  );
         ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPreLoad                           );

@@ -5,6 +5,9 @@
 #include <REX/REX/INI.h>
 #include <xbyak/xbyak.h>
 
+#include <robin_hood.h>
+#include <tbb/scalable_allocator.h>
+
 using namespace std::literals;
 
 namespace stl
