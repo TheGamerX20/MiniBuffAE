@@ -6,12 +6,16 @@ Supports only the Anniversary Editions of the Game.
 ### Requirements
 * [XMake](https://xmake.io) [2.8.2+]
 * C++23 Compiler (MSVC, Clang-CL)
+* VCPKG
 
 ## Getting Started
 ```bat
 git clone --recurse-submodules https://github.com/TheGamerX20/MiniBuffAE
 cd MiniBuffAE
 ```
+
+### Install tbb through VCPKG
+vcpkg install tbb:x64-windows-static-md
 
 ### Build
 To build the project, run the following command:

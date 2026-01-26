@@ -15,9 +15,6 @@
         ["spdlog#09c8c173"] = {
             version = "v1.16.0"
         },
-        ["tbb#f56260b5"] = {
-            version = "2022.1.0"
-        },
         ["unordered_dense#f56260b5"] = {
             version = "v4.8.1"
         },

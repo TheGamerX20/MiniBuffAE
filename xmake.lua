@@ -9,7 +9,7 @@ set_project("MiniBuffAE")
 set_license("GPL-3.0")
 
 -- project version
-local version = "1.6.0"
+local version = "1.6.1"
 local major, minor, patch = version:match("^(%d+)%.(%d+)%.(%d+)$")
 set_version(version)
 
@@ -30,13 +30,16 @@ set_config("commonlib_xbyak", true)
 
 -- add requires
 add_requires("unordered_dense")
-add_requires("tbb")
 
 -- targets
 target("MiniBuffAE")
     -- add packages
     add_packages("unordered_dense")
-    add_packages("tbb")
+
+    -- static tbb from vcpkg
+    add_includedirs(os.getenv("VCPKG_ROOT") .. "/packages/tbb_x64-windows-static-md/include")
+    add_linkdirs(os.getenv("VCPKG_ROOT") .. "/packages/tbb_x64-windows-static-md/lib")
+    add_links("tbb12", "tbbmalloc")
 
     -- add dependencies to target
     add_deps("commonlibf4")
