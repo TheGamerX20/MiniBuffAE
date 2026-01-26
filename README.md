@@ -1,6 +1,6 @@
 # MiniBuff AE
 
-Some Buffout 4 NG Patches & Fixes for AE (1.11.137.0+).<br>
+Buffout 4 NG ported to the Anniversary Editions.<br>
 Supports only the Anniversary Editions of the Game.
 
 ### Requirements
