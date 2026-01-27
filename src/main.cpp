@@ -86,6 +86,7 @@ namespace Main
         ApplyPatch("MagicEffectApplyEvent",             iMagicEffectApplyEventPatch.GetValue(),                 Patches::MagicEffectApplyEventPatch::InstallPreLoad                 );
         ApplyPatch("MaxStdIO",                          iMaxStdIOPatch.GetValue(),                              Patches::MaxStdIOPatch::InstallPreLoad                              );
         ApplyPatch("MovementPlanner",                   iMovementPlannerPatch.GetValue(),                       Patches::MovementPlannerPatch::InstallPreLoad                       );
+        ApplyPatch("PipBoyLightInv",                    iPipBoyLightInvPatch.GetValue(),                        Patches::PipBoyLightInvPatch::InstallPreLoad                        );
         ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                              Patches::SafeExitPatch::InstallPreLoad                              );
         ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),         Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad         );
         ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                         Patches::UnalignedLoadPatch::InstallPreLoad                         );
@@ -116,8 +117,7 @@ namespace Main
 
         ApplyPatch("EncounterZoneReset",                iEncounterZoneResetPatch.GetValue(),                    Patches::EncounterZoneResetPatch::InstallPostInit                   );
         ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPostInit                          );
-        ApplyPatch("PipBoyLightInv",                    iPipBoyLightInvPatch.GetValue(),                        Patches::PipBoyLightInvPatch::InstallPostInit                       );
-
+        
         REX::INFO("Installed PostInit Patches!");
     }
 

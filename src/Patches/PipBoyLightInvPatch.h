@@ -32,7 +32,7 @@ namespace Patches::PipBoyLightInvPatch
 		};
 	}
 
-	inline bool InstallPostInit()
+	inline bool InstallPreLoad()
 	{
 		const auto base = REL::ID(2233255).address();
 
