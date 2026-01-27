@@ -293,7 +293,7 @@ namespace Patches::BSPreCulledObjectsPatch
 			AddToCullingGroup_t* const _addToCullingGroup{ reinterpret_cast<AddToCullingGroup_t*>(REL::ID(2275917).address()) }; // OG: 1175493
 			CallVisibilityCallbacks_t* const _callVisibilityCallbacks{ reinterpret_cast<CallVisibilityCallbacks_t*>(REL::ID(2317332).address()) }; // OG: 887475
 			RemoveVisibilityCallBackForID_t* const _removeVisibilityCallBackForID{ reinterpret_cast<RemoveVisibilityCallBackForID_t*>(REL::ID(2317308).address()) }; // OG: 136788
-			TrackVisibility_t* const _trackVisibility{ reinterpret_cast<TrackVisibility_t*>(REL::ID(2317321).address()) }; // OG: 1167260
+			TrackVisibility_t* const _trackVisibility{ reinterpret_cast<TrackVisibility_t*>(REL::ID(2317331).address()) }; // OG: 1167260
 
 			const PreCulledObjects_t*& _preCulledDynamicObjects{ *reinterpret_cast<const PreCulledObjects_t**>(REL::ID(2712641).address()) }; // OG: 713154
 			const PreCulledObjects_t*& _preCulledDynamicRainObjects{ *reinterpret_cast<const PreCulledObjects_t**>(REL::ID(2712643).address()) }; // OG: 274004
