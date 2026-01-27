@@ -16,6 +16,7 @@
 #include <Patches/MagicEffectApplyEventPatch.h>
 #include <Patches/MaxStdIOPatch.h>
 #include <Patches/MovementPlannerPatch.h>
+#include <Patches/PipBoyLightInvPatch.h>
 #include <Patches/SafeExitPatch.h>
 #include <Patches/TESObjectREFRGetEncounterZonePatch.h>
 #include <Patches/UnalignedLoadPatch.h>
@@ -38,6 +39,7 @@ namespace Main
     static REX::INI::Bool iMagicEffectApplyEventPatch{              "Patches"sv,        "EnableMagicEffectApplyEventPatch"sv,               true        };
     static REX::INI::Bool iMaxStdIOPatch{                           "Patches"sv,        "EnableMaxStdIOPatch"sv,                            true        };
     static REX::INI::Bool iMovementPlannerPatch{                    "Patches"sv,        "EnableMovementPlannerPatch"sv,                     true        };
+    static REX::INI::Bool iPipBoyLightInvPatch{                     "Patches"sv,        "EnablePipBoyLightInvPatch"sv,                      true        };
     static REX::INI::Bool iSafeExitPatch{                           "Patches"sv,        "EnableSafeExitPatch"sv,                            true        };
     static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Patches"sv,        "EnableTESObjectREFRGetEncounterZonePatch"sv,       true        };
     static REX::INI::Bool iUnalignedLoadPatch{                      "Patches"sv,        "EnableUnalignedLoadPatch"sv,                       true        };
@@ -114,6 +116,7 @@ namespace Main
 
         ApplyPatch("EncounterZoneReset",                iEncounterZoneResetPatch.GetValue(),                    Patches::EncounterZoneResetPatch::InstallPostInit                   );
         ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPostInit                          );
+        ApplyPatch("PipBoyLightInv",                    iPipBoyLightInvPatch.GetValue(),                        Patches::PipBoyLightInvPatch::InstallPostInit                       );
 
         REX::INFO("Installed PostInit Patches!");
     }
