@@ -9,6 +9,7 @@
 #include <Patches/CreateD3DAndSwapChainPatch.h>
 #include <Patches/EncounterZoneResetPatch.h>
 #include <Patches/ExperimentalPatch.h>
+#include <Patches/ImageSpaceAdapterWarningPatch.h>
 #include <Patches/INISettingCollectionPatch.h>
 #include <Patches/InputSwitchPatch.h>
 #include <Patches/InteriorNavCutPatch.h>
@@ -30,6 +31,7 @@ namespace Main
     static REX::INI::Bool iCellInitPatch{                           "Patches"sv,        "EnableCellInitPatch"sv,                            true        };
     static REX::INI::Bool iCreateD3DAndSwapChainPatch{              "Patches"sv,        "EnableCreateD3DAndSwapChainPatch"sv,               true        };
     static REX::INI::Bool iEncounterZoneResetPatch{                 "Patches"sv,        "EnableEncounterZoneResetPatch"sv,                  true        };
+    static REX::INI::Bool iImageSpaceAdapterWarningPatch{           "Patches"sv,        "EnableImageSpaceAdapterWarningPatch"sv,            true        };
     static REX::INI::Bool iINISettingCollectionPatch{               "Patches"sv,        "EnableINISettingCollectionPatch"sv,                true        };
     static REX::INI::Bool iInputSwitchPatch{                        "Patches"sv,        "EnableInputSwitchPatch"sv,                         true        };
     static REX::INI::Bool iInteriorNavCutPatch{                     "Patches"sv,        "EnableInteriorNavCutPatch"sv,                      true        };
@@ -76,6 +78,7 @@ namespace Main
         ApplyPatch("BSPreCulledObjects",                iBSPreCulledObjectsPatch.GetValue(),                    Patches::BSPreCulledObjectsPatch::InstallPreLoad                    );
         ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                              Patches::CellInitPatch::InstallPreLoad                              );
         ApplyPatch("CreateD3DAndSwapChain",             iCreateD3DAndSwapChainPatch.GetValue(),                 Patches::CreateD3DAndSwapChainPatch::InstallPreLoad                 );
+        ApplyPatch("ImageSpaceAdapterWarningPatch",     iImageSpaceAdapterWarningPatch.GetValue(),              Patches::ImageSpaceAdapterWarningPatch::InstallPreLoad              );
         ApplyPatch("INISettingCollection",              iINISettingCollectionPatch.GetValue(),                  Patches::INISettingCollectionPatch::InstallPreLoad                  );
         ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPreLoad                           );
         ApplyPatch("MagicEffectApplyEvent",             iMagicEffectApplyEventPatch.GetValue(),                 Patches::MagicEffectApplyEventPatch::InstallPreLoad                 );
