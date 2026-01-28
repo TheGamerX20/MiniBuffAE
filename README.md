@@ -1,4 +1,4 @@
-# MiniBuff AE
+# Buffout 4 AE [MiniBuff AE]
 
 Buffout 4 NG ported to the Anniversary Editions.<br>
 Supports only the Anniversary Editions of the Game.

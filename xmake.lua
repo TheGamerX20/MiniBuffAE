@@ -5,11 +5,11 @@ set_xmakever("2.8.2")
 includes("lib/commonlibf4")
 
 -- set project
-set_project("MiniBuffAE")
+set_project("Buffout4AE")
 set_license("GPL-3.0")
 
 -- project version
-local version = "1.6.2"
+local version = "1.7.0"
 local major, minor, patch = version:match("^(%d+)%.(%d+)%.(%d+)$")
 set_version(version)
 
@@ -32,7 +32,7 @@ set_config("commonlib_xbyak", true)
 add_requires("unordered_dense")
 
 -- targets
-target("MiniBuffAE")
+target("Buffout4AE")
     -- add packages
     add_packages("unordered_dense")
 
@@ -46,7 +46,7 @@ target("MiniBuffAE")
 
     -- add commonlibsse plugin
     add_rules("commonlibf4.plugin", {
-        name = "MiniBuffAE",
+        name = "Buffout4AE",
         author = "TheGamerX20",
         description = "Buffout 4 NG ported to AE"
     })

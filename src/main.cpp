@@ -24,30 +24,32 @@
 
 namespace Main
 {
-    // Config Options
+    // Fixes
+    static REX::INI::Bool iActorIsHostileToActorPatch{              "Fixes"sv,          "EnableActorIsHostileToActorPatch"sv,               true        };
+    static REX::INI::Bool iBGSAIWorldLocationRefRadiusPatch{        "Fixes"sv,          "EnableBGSAIWorldLocationRefRadiusPatch"sv,         true        };
+    static REX::INI::Bool iCellInitPatch{                           "Fixes"sv,          "EnableCellInitPatch"sv,                            true        };
+    static REX::INI::Bool iCreateD3DAndSwapChainPatch{              "Fixes"sv,          "EnableCreateD3DAndSwapChainPatch"sv,               true        };
+    static REX::INI::Bool iEncounterZoneResetPatch{                 "Fixes"sv,          "EnableEncounterZoneResetPatch"sv,                  true        };
+    static REX::INI::Bool iInteriorNavCutPatch{                     "Fixes"sv,          "EnableInteriorNavCutPatch"sv,                      true        };
+    static REX::INI::Bool iMagicEffectApplyEventPatch{              "Fixes"sv,          "EnableMagicEffectApplyEventPatch"sv,               true        };
+    static REX::INI::Bool iMovementPlannerPatch{                    "Fixes"sv,          "EnableMovementPlannerPatch"sv,                     true        };
+    static REX::INI::Bool iPipBoyLightInvPatch{                     "Fixes"sv,          "EnablePipBoyLightInvPatch"sv,                      true        };
+    static REX::INI::Bool iSafeExitPatch{                           "Fixes"sv,          "EnableSafeExitPatch"sv,                            true        };
+    static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Fixes"sv,          "EnableTESObjectREFRGetEncounterZonePatch"sv,       true        };
+    static REX::INI::Bool iUnalignedLoadPatch{                      "Fixes"sv,          "EnableUnalignedLoadPatch"sv,                       true        };
+    static REX::INI::Bool iWorkbenchSwapPatch{                      "Fixes"sv,          "EnableWorkbenchSwapPatch"sv,                       true        };
+    static REX::INI::Bool iExperimentalPatch{                       "Fixes"sv,          "EnableExperimentalPatch"sv,                        false       };
+
+    // Patches
     static REX::INI::Bool iAchievementsPatch{                       "Patches"sv,        "EnableAchievementsPatch"sv,                        true        };
-    static REX::INI::Bool iActorIsHostileToActorPatch{              "Patches"sv,        "EnableActorIsHostileToActorPatch"sv,               true        };
-    static REX::INI::Bool iBGSAIWorldLocationRefRadiusPatch{        "Patches"sv,        "EnableBGSAIWorldLocationRefRadiusPatch"sv,         true        };
     static REX::INI::Bool iBSPreCulledObjectsPatch{                 "Patches"sv,        "EnableBSPreCulledObjectsPatch"sv,                  true        };
-    static REX::INI::Bool iCellInitPatch{                           "Patches"sv,        "EnableCellInitPatch"sv,                            true        };
-    static REX::INI::Bool iCreateD3DAndSwapChainPatch{              "Patches"sv,        "EnableCreateD3DAndSwapChainPatch"sv,               true        };
-    static REX::INI::Bool iEncounterZoneResetPatch{                 "Patches"sv,        "EnableEncounterZoneResetPatch"sv,                  true        };
-    static REX::INI::Bool iImageSpaceAdapterWarningPatch{           "Patches"sv,        "EnableImageSpaceAdapterWarningPatch"sv,            true        };
     static REX::INI::Bool iINISettingCollectionPatch{               "Patches"sv,        "EnableINISettingCollectionPatch"sv,                true        };
     static REX::INI::Bool iInputSwitchPatch{                        "Patches"sv,        "EnableInputSwitchPatch"sv,                         true        };
-    static REX::INI::Bool iInteriorNavCutPatch{                     "Patches"sv,        "EnableInteriorNavCutPatch"sv,                      true        };
-    static REX::INI::Bool iMagicEffectApplyEventPatch{              "Patches"sv,        "EnableMagicEffectApplyEventPatch"sv,               true        };
     static REX::INI::Bool iMaxStdIOPatch{                           "Patches"sv,        "EnableMaxStdIOPatch"sv,                            true        };
-    static REX::INI::Bool iMovementPlannerPatch{                    "Patches"sv,        "EnableMovementPlannerPatch"sv,                     true        };
-    static REX::INI::Bool iPipBoyLightInvPatch{                     "Patches"sv,        "EnablePipBoyLightInvPatch"sv,                      true        };
-    static REX::INI::Bool iSafeExitPatch{                           "Patches"sv,        "EnableSafeExitPatch"sv,                            true        };
-    static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Patches"sv,        "EnableTESObjectREFRGetEncounterZonePatch"sv,       true        };
-    static REX::INI::Bool iUnalignedLoadPatch{                      "Patches"sv,        "EnableUnalignedLoadPatch"sv,                       true        };
-    static REX::INI::Bool iWorkbenchSwapPatch{                      "Patches"sv,        "EnableWorkbenchSwapPatch"sv,                       true        };
-
-    // Experimental Patch
-    static REX::INI::Bool iExperimentalPatch{                       "Patches"sv,        "EnableExperimentalPatch"sv,                        false       };
-
+    
+    // Warnings
+    static REX::INI::Bool iImageSpaceAdapterWarningPatch{           "Warnings"sv,       "EnableImageSpaceAdapterWarningPatch"sv,            true        };
+    
     // Helper Function
     template <typename Func>
     void ApplyPatch(std::string_view PatchName, bool ShouldApplyPatch, Func&& PatchInstallFunction)
@@ -145,7 +147,7 @@ namespace Main
         case F4SE::MessagingInterface::kGameLoaded:
         {
             InstallPostInitPatches();
-            REX::INFO("MiniBuff AE Initialized!");
+            REX::INFO("Buffout 4 AE Initialized!");
 
             break;
         }
@@ -162,11 +164,11 @@ namespace Main
     {
         // Init
         F4SE::Init(a_f4se);
-        REX::INFO("MiniBuff AE Initializing...");
+        REX::INFO("Bufout 4 AE Initializing...");
 
         // Load the Config
         const auto config = REX::INI::SettingStore::GetSingleton();
-        config->Init("Data/F4SE/Plugins/MiniBuffAE.ini", "Data/F4SE/Plugins/MiniBuffAECustom.ini");
+        config->Init("Data/F4SE/Plugins/Buffout4AE.ini", "Data/F4SE/Plugins/Buffout4AECustom.ini");
         config->Load();
 
         // Get the Trampoline and Allocate
