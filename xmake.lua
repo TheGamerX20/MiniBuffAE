@@ -9,7 +9,7 @@ set_project("Buffout4AE")
 set_license("GPL-3.0")
 
 -- project version
-local version = "1.7.0"
+local version = "1.7.1"
 local major, minor, patch = version:match("^(%d+)%.(%d+)%.(%d+)$")
 set_version(version)
 

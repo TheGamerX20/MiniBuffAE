@@ -2,9 +2,7 @@
 
 namespace Patches::MaxStdIOPatch
 {
-	static REX::INI::I32 iMaxStdIO{ "MaxStdIOPatch"sv, "MaxStdIO"sv, 2048 };
-
-	inline bool InstallPreLoad()
+	inline bool InstallPreLoad(int MaxStdIOValue)
 	{
 		const auto handle = REX::W32::GetModuleHandleW(L"api-ms-win-crt-runtime-l1-1-0.dll");
 		const auto proc = handle ? reinterpret_cast<decltype(&_setmaxstdio)>(REX::W32::GetProcAddress(handle, "_setmaxstdio")) : nullptr;
@@ -13,7 +11,7 @@ namespace Patches::MaxStdIOPatch
 		{
 			const auto get = reinterpret_cast<decltype(&_getmaxstdio)>(REX::W32::GetProcAddress(handle, "_getmaxstdio"));
 			const auto old = get();
-			const auto result = proc(static_cast<int>(iMaxStdIO.GetValue()));
+			const auto result = proc(static_cast<int>(MaxStdIOValue));
 			
 			if (get)
 			{

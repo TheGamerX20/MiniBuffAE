@@ -25,30 +25,30 @@
 namespace Main
 {
     // Fixes
-    static REX::INI::Bool iActorIsHostileToActorPatch{              "Fixes"sv,          "EnableActorIsHostileToActorPatch"sv,               true        };
-    static REX::INI::Bool iBGSAIWorldLocationRefRadiusPatch{        "Fixes"sv,          "EnableBGSAIWorldLocationRefRadiusPatch"sv,         true        };
-    static REX::INI::Bool iCellInitPatch{                           "Fixes"sv,          "EnableCellInitPatch"sv,                            true        };
-    static REX::INI::Bool iCreateD3DAndSwapChainPatch{              "Fixes"sv,          "EnableCreateD3DAndSwapChainPatch"sv,               true        };
-    static REX::INI::Bool iEncounterZoneResetPatch{                 "Fixes"sv,          "EnableEncounterZoneResetPatch"sv,                  true        };
-    static REX::INI::Bool iInteriorNavCutPatch{                     "Fixes"sv,          "EnableInteriorNavCutPatch"sv,                      true        };
-    static REX::INI::Bool iMagicEffectApplyEventPatch{              "Fixes"sv,          "EnableMagicEffectApplyEventPatch"sv,               true        };
-    static REX::INI::Bool iMovementPlannerPatch{                    "Fixes"sv,          "EnableMovementPlannerPatch"sv,                     true        };
-    static REX::INI::Bool iPipBoyLightInvPatch{                     "Fixes"sv,          "EnablePipBoyLightInvPatch"sv,                      true        };
-    static REX::INI::Bool iSafeExitPatch{                           "Fixes"sv,          "EnableSafeExitPatch"sv,                            true        };
-    static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Fixes"sv,          "EnableTESObjectREFRGetEncounterZonePatch"sv,       true        };
-    static REX::INI::Bool iUnalignedLoadPatch{                      "Fixes"sv,          "EnableUnalignedLoadPatch"sv,                       true        };
-    static REX::INI::Bool iWorkbenchSwapPatch{                      "Fixes"sv,          "EnableWorkbenchSwapPatch"sv,                       true        };
+    static REX::INI::Bool iActorIsHostileToActorPatch{              "Fixes"sv,          "ActorIsHostileToActor"sv,                          true        };
+    static REX::INI::Bool iBGSAIWorldLocationRefRadiusPatch{        "Fixes"sv,          "BGSAIWorldLocationRefRadiusNull"sv,                true        };
+    static REX::INI::Bool iCellInitPatch{                           "Fixes"sv,          "CellInit"sv,                                       true        };
+    static REX::INI::Bool iCreateD3DAndSwapChainPatch{              "Fixes"sv,          "CreateD3DAndSwapChain"sv,                          true        };
+    static REX::INI::Bool iEncounterZoneResetPatch{                 "Fixes"sv,          "EncounterZoneReset"sv,                             true        };
+    static REX::INI::Bool iInteriorNavCutPatch{                     "Fixes"sv,          "InteriorNavCut"sv,                                 true        };
+    static REX::INI::Bool iMagicEffectApplyEventPatch{              "Fixes"sv,          "MagicEffectApplyEvent"sv,                          true        };
+    static REX::INI::Bool iMovementPlannerPatch{                    "Fixes"sv,          "MovementPlanner"sv,                                true        };
+    static REX::INI::Bool iPipBoyLightInvPatch{                     "Fixes"sv,          "PipboyLightInvFix"sv,                              true        };
+    static REX::INI::Bool iSafeExitPatch{                           "Fixes"sv,          "SafeExit"sv,                                       true        };
+    static REX::INI::Bool iTESObjectREFRGetEncounterZonePatch{      "Fixes"sv,          "TESObjectREFRGetEncounterZone"sv,                  true        };
+    static REX::INI::Bool iUnalignedLoadPatch{                      "Fixes"sv,          "UnalignedLoad"sv,                                  true        };
+    static REX::INI::Bool iWorkbenchSwapPatch{                      "Fixes"sv,          "WorkBenchSwap"sv,                                  true        };
     static REX::INI::Bool iExperimentalPatch{                       "Fixes"sv,          "EnableExperimentalPatch"sv,                        false       };
 
     // Patches
-    static REX::INI::Bool iAchievementsPatch{                       "Patches"sv,        "EnableAchievementsPatch"sv,                        true        };
-    static REX::INI::Bool iBSPreCulledObjectsPatch{                 "Patches"sv,        "EnableBSPreCulledObjectsPatch"sv,                  true        };
-    static REX::INI::Bool iINISettingCollectionPatch{               "Patches"sv,        "EnableINISettingCollectionPatch"sv,                true        };
-    static REX::INI::Bool iInputSwitchPatch{                        "Patches"sv,        "EnableInputSwitchPatch"sv,                         true        };
-    static REX::INI::Bool iMaxStdIOPatch{                           "Patches"sv,        "EnableMaxStdIOPatch"sv,                            true        };
+    static REX::INI::Bool iAchievementsPatch{                       "Patches"sv,        "Achievements"sv,                                   true        };
+    static REX::INI::Bool iBSPreCulledObjectsPatch{                 "Patches"sv,        "BSPreCulledObjects"sv,                             true        };
+    static REX::INI::Bool iINISettingCollectionPatch{               "Patches"sv,        "INISettingCollection"sv,                           true        };
+    static REX::INI::Bool iInputSwitchPatch{                        "Patches"sv,        "InputSwitch"sv,                                    true        };
+    static REX::INI::I32  iMaxStdIOPatch{                           "Patches"sv,        "MaxStdIO"sv,                                       2048        };
     
     // Warnings
-    static REX::INI::Bool iImageSpaceAdapterWarningPatch{           "Warnings"sv,       "EnableImageSpaceAdapterWarningPatch"sv,            true        };
+    static REX::INI::Bool iImageSpaceAdapterWarningPatch{           "Warnings"sv,       "ImageSpaceAdapter"sv,                              true        };
     
     // Helper Function
     template <typename Func>
@@ -76,26 +76,26 @@ namespace Main
     {
         REX::INFO("Installing PreLoad Patches...");
         
-        ApplyPatch("Achievements",                      iAchievementsPatch.GetValue(),                          Patches::AchievementsPatch::InstallPreLoad                          );
-        ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),                 Patches::ActorIsHostileToActorPatch::InstallPreLoad                 );
-        ApplyPatch("BGSAIWorldLocationRefRadius",       iBGSAIWorldLocationRefRadiusPatch.GetValue(),           Patches::BGSAIWorldLocationRefRadiusPatch::InstallPreLoad           );
-        ApplyPatch("BSPreCulledObjects",                iBSPreCulledObjectsPatch.GetValue(),                    Patches::BSPreCulledObjectsPatch::InstallPreLoad                    );
-        ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                              Patches::CellInitPatch::InstallPreLoad                              );
-        ApplyPatch("CreateD3DAndSwapChain",             iCreateD3DAndSwapChainPatch.GetValue(),                 Patches::CreateD3DAndSwapChainPatch::InstallPreLoad                 );
-        ApplyPatch("ImageSpaceAdapterWarningPatch",     iImageSpaceAdapterWarningPatch.GetValue(),              Patches::ImageSpaceAdapterWarningPatch::InstallPreLoad              );
-        ApplyPatch("INISettingCollection",              iINISettingCollectionPatch.GetValue(),                  Patches::INISettingCollectionPatch::InstallPreLoad                  );
-        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPreLoad                           );
-        ApplyPatch("MagicEffectApplyEvent",             iMagicEffectApplyEventPatch.GetValue(),                 Patches::MagicEffectApplyEventPatch::InstallPreLoad                 );
-        ApplyPatch("MaxStdIO",                          iMaxStdIOPatch.GetValue(),                              Patches::MaxStdIOPatch::InstallPreLoad                              );
-        ApplyPatch("MovementPlanner",                   iMovementPlannerPatch.GetValue(),                       Patches::MovementPlannerPatch::InstallPreLoad                       );
-        ApplyPatch("PipBoyLightInv",                    iPipBoyLightInvPatch.GetValue(),                        Patches::PipBoyLightInvPatch::InstallPreLoad                        );
-        ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                              Patches::SafeExitPatch::InstallPreLoad                              );
-        ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),         Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad         );
-        ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                         Patches::UnalignedLoadPatch::InstallPreLoad                         );
-        ApplyPatch("WorkbenchSwap",                     iWorkbenchSwapPatch.GetValue(),                         Patches::WorkbenchSwapPatch::InstallPreLoad                         );
+        ApplyPatch("Achievements",                      iAchievementsPatch.GetValue(),                          Patches::AchievementsPatch::InstallPreLoad                                              );
+        ApplyPatch("ActorIsHostileToActor",             iActorIsHostileToActorPatch.GetValue(),                 Patches::ActorIsHostileToActorPatch::InstallPreLoad                                     );
+        ApplyPatch("BGSAIWorldLocationRefRadius",       iBGSAIWorldLocationRefRadiusPatch.GetValue(),           Patches::BGSAIWorldLocationRefRadiusPatch::InstallPreLoad                               );
+        ApplyPatch("BSPreCulledObjects",                iBSPreCulledObjectsPatch.GetValue(),                    Patches::BSPreCulledObjectsPatch::InstallPreLoad                                        );
+        ApplyPatch("CellInit",                          iCellInitPatch.GetValue(),                              Patches::CellInitPatch::InstallPreLoad                                                  );
+        ApplyPatch("CreateD3DAndSwapChain",             iCreateD3DAndSwapChainPatch.GetValue(),                 Patches::CreateD3DAndSwapChainPatch::InstallPreLoad                                     );
+        ApplyPatch("ImageSpaceAdapterWarningPatch",     iImageSpaceAdapterWarningPatch.GetValue(),              Patches::ImageSpaceAdapterWarningPatch::InstallPreLoad                                  );
+        ApplyPatch("INISettingCollection",              iINISettingCollectionPatch.GetValue(),                  Patches::INISettingCollectionPatch::InstallPreLoad                                      );
+        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPreLoad                                               );
+        ApplyPatch("MagicEffectApplyEvent",             iMagicEffectApplyEventPatch.GetValue(),                 Patches::MagicEffectApplyEventPatch::InstallPreLoad                                     );
+        ApplyPatch("MaxStdIO",                          iMaxStdIOPatch.GetValue() > 512,                        [&]() { return Patches::MaxStdIOPatch::InstallPreLoad(iMaxStdIOPatch.GetValue()); }     );
+        ApplyPatch("MovementPlanner",                   iMovementPlannerPatch.GetValue(),                       Patches::MovementPlannerPatch::InstallPreLoad                                           );
+        ApplyPatch("PipBoyLightInv",                    iPipBoyLightInvPatch.GetValue(),                        Patches::PipBoyLightInvPatch::InstallPreLoad                                            );
+        ApplyPatch("SafeExit",                          iSafeExitPatch.GetValue(),                              Patches::SafeExitPatch::InstallPreLoad                                                  );
+        ApplyPatch("TESObjectREFRGetEncounterZone",     iTESObjectREFRGetEncounterZonePatch.GetValue(),         Patches::TESObjectREFRGetEncounterZonePatch::InstallPreLoad                             );
+        ApplyPatch("UnalignedLoad",                     iUnalignedLoadPatch.GetValue(),                         Patches::UnalignedLoadPatch::InstallPreLoad                                             );
+        ApplyPatch("WorkbenchSwap",                     iWorkbenchSwapPatch.GetValue(),                         Patches::WorkbenchSwapPatch::InstallPreLoad                                             );
 
         // Experimental
-        ApplyPatch("Experimental",                      iExperimentalPatch.GetValue(),                          Patches::ExperimentalPatch::InstallPreLoad                          );
+        ApplyPatch("Experimental",                      iExperimentalPatch.GetValue(),                          Patches::ExperimentalPatch::InstallPreLoad                                              );
 
         REX::INFO("Installed PreLoad Patches!");
     }
@@ -106,7 +106,7 @@ namespace Main
     {
         REX::INFO("Installing GameDataReady Patches...");
 
-        ApplyPatch("InteriorNavCut",                    iInteriorNavCutPatch.GetValue(),                        Patches::InteriorNavCutPatch::RegisterNavMeshUpdateListener         );
+        ApplyPatch("InteriorNavCut",                    iInteriorNavCutPatch.GetValue(),                        Patches::InteriorNavCutPatch::RegisterNavMeshUpdateListener                             );
 
         REX::INFO("Installed GameDataReady Patches!");
     }
@@ -117,8 +117,8 @@ namespace Main
     {
         REX::INFO("Installing PostInit Patches...");
 
-        ApplyPatch("EncounterZoneReset",                iEncounterZoneResetPatch.GetValue(),                    Patches::EncounterZoneResetPatch::InstallPostInit                   );
-        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPostInit                          );
+        ApplyPatch("EncounterZoneReset",                iEncounterZoneResetPatch.GetValue(),                    Patches::EncounterZoneResetPatch::InstallPostInit                                       );
+        ApplyPatch("InputSwitch",                       iInputSwitchPatch.GetValue(),                           Patches::InputSwitchPatch::InstallPostInit                                              );
         
         REX::INFO("Installed PostInit Patches!");
     }
@@ -129,7 +129,7 @@ namespace Main
     {
         REX::INFO("Applying PostLoadGame Patches...");
 
-        ApplyPatch("InteriorNavCut",                    iInteriorNavCutPatch.GetValue(),                        Patches::InteriorNavCutPatch::ForceNavMeshUpdate                    );
+        ApplyPatch("InteriorNavCut",                    iInteriorNavCutPatch.GetValue(),                        Patches::InteriorNavCutPatch::ForceNavMeshUpdate                                        );
 
         REX::INFO("Applied PostLoadGame Patches!");
     }
